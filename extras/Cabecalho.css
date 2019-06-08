@@ -1,0 +1,33 @@
+header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+nav > ul {
+  text-align: justify;
+  list-style: none;
+}
+
+nav > ul:after {
+  content: '';
+  display: inline-block;
+  height: 0;
+  width: 100%;
+}
+
+ul > li {
+  display: inline-block;
+}
+
+ul > li:not(:first-child) {
+  margin-left: 10px;
+}
+
+a {
+  color: black;
+  text-decoration: none;  
+}
+
+/* https://github.com/caelum/arquivos-js46 */

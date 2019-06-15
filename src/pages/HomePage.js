@@ -107,6 +107,23 @@ class App extends Component {
   //   );
   // }
 
+  excluirTweet = (idTweet) => () => {
+    const token = localStorage.getItem('token');
+
+    fetch(`http://twitelum-api.herokuapp.com/tweets/${idTweet}?X-AUTH-TOKEN=${token}`, {
+      method: 'DELETE'
+    }).then(resposta => {
+      if (resposta.ok) {
+        this.setState({
+          tweets: this.state.tweets.filter(tweet => {
+            // retornar um true/false
+            return tweet._id !== idTweet;
+          })
+        });
+      }
+    });
+  }
+
   render() {
     const { novoTweet, tweets } = this.state;
 
@@ -156,11 +173,14 @@ class App extends Component {
                 {tweets.map((tweet) => (
                   <Tweet
                     key={tweet._id}
+                    id={tweet._id}
+                    removivel={tweet.removivel}
                     avatarUrl={tweet.usuario.foto}
                     userName={tweet.usuario.login}
                     likeado={tweet.likeado}
                     totalLikes={tweet.totalLikes || tweet.likes.length}
                     nomeUsuario={`${tweet.usuario.nome} ${tweet.usuario.sobrenome}`}
+                    excluirTweet={this.excluirTweet(tweet._id)}
                   >
                     {tweet.conteudo}
                   </Tweet>

@@ -28,11 +28,28 @@ class App extends Component {
 
     // console.log('form submitado');
     // this.state.novoTweet // conteudo
+    const token = localStorage.getItem('token');
 
-    this.setState({
-      tweets: [this.state.novoTweet, ...this.state.tweets],
-      novoTweet: ''
-    });
+    fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        conteudo: this.state.novoTweet
+      })
+    }).then(resposta => resposta.json())
+      .then(tweetNovo => {
+        this.setState({
+          tweets: [tweetNovo, ...this.state.tweets],
+          novoTweet: ''
+        });
+      });
+
+    // this.setState({
+    //   tweets: [this.state.novoTweet, ...this.state.tweets],
+    //   novoTweet: ''
+    // });
   }
 
   novoTweetValido = () => this.state.novoTweet.length === 0
@@ -98,14 +115,15 @@ class App extends Component {
                 {tweets.length === 0 && (
                   <span>Twitte alguma coisa!</span>
                 )}
-                {tweets.map((conteudoTweet, index) => (
+                {tweets.map((tweet) => (
                   <Tweet
-                    key={index}
-                    avatarUrl="https://pbs.twimg.com/profile_images/1023196605086875649/t-q4NJtl_400x400.jpg"
-                    userName="felizberto1234"
-                    nomeUsuario="Felizberto Doguin"
+                    key={tweet._id}
+                    avatarUrl={tweet.usuario.foto}
+                    userName={tweet.usuario.login}
+                    totalLikes={tweet.totalLikes || tweet.likes.length}
+                    nomeUsuario={`${tweet.usuario.nome} ${tweet.usuario.sobrenome}`}
                   >
-                    {conteudoTweet}
+                    {tweet.conteudo}
                   </Tweet>
                 ))}
                 {/* <Tweet

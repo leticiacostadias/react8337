@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Redirect, Route } from 'react-router-dom';
 
 import RotaPrivada from './components/RotaPrivada';
 
@@ -11,6 +11,7 @@ export const Roteamento = () => (
   <Switch>
     <RotaPrivada path="/" component={HomePage} exact />
     <Route path="/login" component={LoginPage} />
+    <Route path="/logout" component={(() => <Redirect to="/login"/>)} />
     <Route path="*" component={ErrorPage} />
     {/* <Route path="/categoria/:produtoId" component={ProductPage} /> */}
 

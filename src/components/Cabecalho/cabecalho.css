@@ -4,8 +4,8 @@
   background-color: #fff;
 }
 .cabecalho__container {
-  padding: 0 15px;
-  display: flex;
+  padding: 0 15px !important;
+  display: flex !important;
   text-align: center;
   justify-content: space-between;
   align-items: center;

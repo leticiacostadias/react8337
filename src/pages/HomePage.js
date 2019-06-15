@@ -18,6 +18,7 @@ class App extends Component {
   state = {
     novoTweet: '',
     atualizado: false,
+    mostraModal: false,
     tweetSelecionado: null,
     tweets: []
   }
@@ -133,6 +134,13 @@ class App extends Component {
     });
   }
 
+  fechaModal = () => {
+    this.setState({
+      mostraModal: false,
+      tweetSelecionado: null
+    });
+  }
+
   render() {
     const {
       novoTweet,
@@ -212,7 +220,10 @@ class App extends Component {
             </Widget>
           </Dashboard>
         </div>
-        <Modal estaAberto={mostraModal}>
+        <Modal
+          estaAberto={mostraModal}
+          fechaModal={this.fechaModal}
+        >
           {tweetSelecionado && (
             <Tweet
               id={tweetSelecionado._id}

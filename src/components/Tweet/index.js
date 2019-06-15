@@ -48,11 +48,15 @@ class Tweet extends Component {
       });
   }
 
-  render() {
-    const { abreModal } = this.props;
+  handleClick = (event) => {
+    if (event.target.closest('.tweet__footer')) return;
 
+    if (this.props.abreModal) this.props.abreModal();
+  }
+
+  render() {
     return (
-      <article className="tweet" onClick={abreModal}>
+      <article className="tweet" onClick={this.handleClick}>
         <div className="tweet__cabecalho">
           <img
             className="tweet__fotoUsuario"

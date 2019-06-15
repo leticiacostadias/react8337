@@ -13,14 +13,16 @@ class Tweet extends Component {
     nomeUsuario: propTypes.string.isRequired,
     likeado: propTypes.bool,
     removivel: propTypes.bool,
-    children: propTypes.node.isRequired
+    children: propTypes.node.isRequired,
+    abreModal: propTypes.func
   }
 
   static defaultProps = {
     totalLikes: 0,
     likeado: false,
     removivel: false,
-    avatarUrl: 'https://place-hold.it/50x50'
+    avatarUrl: 'https://place-hold.it/50x50',
+    abreModal: null
   }
 
   state = {
@@ -47,8 +49,10 @@ class Tweet extends Component {
   }
 
   render() {
+    const { abreModal } = this.props;
+
     return (
-      <article className="tweet">
+      <article className="tweet" onClick={abreModal}>
         <div className="tweet__cabecalho">
           <img
             className="tweet__fotoUsuario"

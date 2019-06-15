@@ -5,6 +5,7 @@ import Dashboard from './../components/Dashboard'
 import Widget from './../components/Widget'
 import TrendsArea from './../components/TrendsArea'
 import Tweet from './../components/Tweet'
+import Modal from './../components/Modal'
 
 class App extends Component {
   // constructor (props) {
@@ -17,6 +18,7 @@ class App extends Component {
   state = {
     novoTweet: '',
     atualizado: false,
+    tweetSelecionado: null,
     tweets: []
   }
 
@@ -124,8 +126,20 @@ class App extends Component {
     });
   }
 
+  abreModalParaTweet = (tweet) => () => {
+    this.setState({
+      mostraModal: true,
+      tweetSelecionado: tweet
+    });
+  }
+
   render() {
-    const { novoTweet, tweets } = this.state;
+    const {
+      novoTweet,
+      tweets,
+      mostraModal,
+      tweetSelecionado
+    } = this.state;
 
     return (
       <Fragment>
@@ -181,6 +195,7 @@ class App extends Component {
                     totalLikes={tweet.totalLikes || tweet.likes.length}
                     nomeUsuario={`${tweet.usuario.nome} ${tweet.usuario.sobrenome}`}
                     excluirTweet={this.excluirTweet(tweet._id)}
+                    abreModal={this.abreModalParaTweet(tweet)}
                   >
                     {tweet.conteudo}
                   </Tweet>
@@ -197,6 +212,22 @@ class App extends Component {
             </Widget>
           </Dashboard>
         </div>
+        <Modal estaAberto={mostraModal}>
+          {tweetSelecionado && (
+            <Tweet
+              id={tweetSelecionado._id}
+              removivel={tweetSelecionado.removivel}
+              avatarUrl={tweetSelecionado.usuario.foto}
+              userName={tweetSelecionado.usuario.login}
+              likeado={tweetSelecionado.likeado}
+              totalLikes={tweetSelecionado.totalLikes || tweetSelecionado.likes.length}
+              nomeUsuario={`${tweetSelecionado.usuario.nome} ${tweetSelecionado.usuario.sobrenome}`}
+              excluirtweetSelecionado={this.excluirTweet(tweetSelecionado._id)}
+            >            
+              {tweetSelecionado.conteudo}
+            </Tweet>
+          )}
+        </Modal>
       </Fragment>
     );
   }

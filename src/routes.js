@@ -9,7 +9,7 @@ import ErrorPage from './pages/ErrorPage';
 
 export const Roteamento = () => (
   <Switch>
-    <RotaPrivada path="/" component={HomePage} exact />
+    <RotaPrivada path={['/', '/tweets/:idTweet']} component={HomePage} exact />
     <Route path="/login" component={LoginPage} />
     <Route path="/logout" component={(() => <Redirect to="/login"/>)} />
     <Route path="*" component={ErrorPage} />

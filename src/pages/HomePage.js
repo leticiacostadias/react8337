@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 import Cabecalho from './../components/Cabecalho'
 import NavMenu from './../components/NavMenu'
 import Dashboard from './../components/Dashboard'
@@ -25,18 +26,41 @@ class App extends Component {
 
   // UNSAFE_componentWillMount () {}
   componentDidMount () {
+    // console.log(this.props.location);
+    // console.log(this.props.match);
+
     const token = localStorage.getItem('token');
 
     fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`)
       .then(resposta => resposta.json())
-      .then(listaDeTweets => this.setState({
-        tweets: listaDeTweets
-        // tweets: listaDeTweets.map(tweet => {
-        //   tweet.totalLikes += 1;
+      .then(listaDeTweets => {
+        const { idTweet } = this.props.match.params;
+        const novoState = {
+          tweets: listaDeTweets
+        };
 
-        //   return tweet;
-        // })
-      }));
+        if (idTweet) {
+          const tweetLink = listaDeTweets.find(
+            tweet => tweet._id === idTweet
+          );
+
+          if (tweetLink) {
+            novoState.mostraModal = true;
+            novoState.tweetSelecionado = tweetLink;
+          }
+        }
+
+        this.setState(novoState);
+          // {
+            // tweets: listaDeTweets
+            // tweets: listaDeTweets.map(tweet => {
+            //   tweet.totalLikes += 1;
+
+            //   return tweet;
+            // })
+          // }
+        // )
+      });
   }
 
   // UNSAFE_componentWillReceiveProps () {}
@@ -128,6 +152,8 @@ class App extends Component {
   }
 
   abreModalParaTweet = (tweet) => () => {
+    this.props.history.push(`/tweets/${tweet._id}`);
+
     this.setState({
       mostraModal: true,
       tweetSelecionado: tweet
@@ -135,6 +161,8 @@ class App extends Component {
   }
 
   fechaModal = () => {
+    this.props.history.push('/');
+
     this.setState({
       mostraModal: false,
       tweetSelecionado: null
@@ -244,4 +272,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

@@ -16,7 +16,45 @@ class App extends Component {
 
   state = {
     novoTweet: '',
+    atualizado: false,
     tweets: []
+  }
+
+  // UNSAFE_componentWillMount () {}
+  componentDidMount () {
+    const token = localStorage.getItem('token');
+
+    fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`)
+      .then(resposta => resposta.json())
+      .then(listaDeTweets => this.setState({
+        tweets: listaDeTweets
+        // tweets: listaDeTweets.map(tweet => {
+        //   tweet.totalLikes += 1;
+
+        //   return tweet;
+        // })
+      }));
+  }
+
+  // UNSAFE_componentWillReceiveProps () {}
+  // UNSAFE_componentWillUpdate () {}
+  // componentDidUpdate () {
+  //   if (!this.state.atualizado) {
+  //     this.setState({
+  //       atualizado: true,
+  //       tweets: this.state.tweets.map(tweet => {
+  //         tweet.totalLikes += 1;
+
+  //         return tweet;
+  //       })
+  //     });
+  //   }
+  // }
+
+  componentDidCatch (error) {
+    console.log('xi, algo deu errado!');
+    console.log(error);
+    this.setState({ erro: true });
   }
 
   handleChange = (event) => this.setState({
@@ -120,6 +158,7 @@ class App extends Component {
                     key={tweet._id}
                     avatarUrl={tweet.usuario.foto}
                     userName={tweet.usuario.login}
+                    likeado={tweet.likeado}
                     totalLikes={tweet.totalLikes || tweet.likes.length}
                     nomeUsuario={`${tweet.usuario.nome} ${tweet.usuario.sobrenome}`}
                   >

@@ -202,7 +202,8 @@ class App extends Component {
     const {
       listaDeTweets,
       mostraModal,
-      tweetSelecionado
+      tweetSelecionado,
+      notificacao
     } = this.props;
 
     return (
@@ -296,9 +297,11 @@ class App extends Component {
           )}
         </Modal>
 
-        <div className="notificacaoMsg">
-          Olá, sou uma notificação muito lindinha!
-        </div>
+        {notificacao && (
+          <div className="notificacaoMsg">
+            {notificacao}
+          </div>
+        )}
       </Fragment>
     );
   }
@@ -306,9 +309,10 @@ class App extends Component {
 
 function mapStateToProps(stateDaStore) {
   return {
-    listaDeTweets: stateDaStore.tweets,
-    mostraModal: stateDaStore.mostraModal,
-    tweetSelecionado: stateDaStore.tweetSelecionado
+    listaDeTweets: stateDaStore.tweets.tweets,
+    mostraModal: stateDaStore.tweets.mostraModal,
+    tweetSelecionado: stateDaStore.tweets.tweetSelecionado,
+    notificacao: stateDaStore.notificacao
   };
 }
 

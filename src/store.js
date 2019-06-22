@@ -1,4 +1,5 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 const storeInicial = {
   tweets: []
@@ -23,12 +24,23 @@ function reducerTweets (state = storeInicial, action) {
         ...state,
         tweets: action.payload
       };
+    
+    case 'ADD_TWEET':
+      const tweets = [action.payload, ...state.tweets];
+
+      return {
+        ...state,
+        tweets
+      };
 
     default:
       return state;
   }
 }
 
-const store = createStore(reducerTweets);
+const store = createStore(
+  reducerTweets,
+  applyMiddleware(thunk)
+);
 
 export default store;

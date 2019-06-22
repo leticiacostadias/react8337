@@ -10,12 +10,15 @@ import TrendsArea from './../components/TrendsArea';
 import Tweet from './../components/Tweet';
 import Modal from './../components/Modal';
 
+// import * as TweetAPI from '../services/TweetsAPI';
+import { atualizaTweets, criaTweet } from '../services/TweetsAPI';
+
 class App extends Component {
   // constructor (props) {
   //   super(props);
 
-    // binds
-    // this.handleChange = this.handleChange.bind(this);
+  // binds
+  // this.handleChange = this.handleChange.bind(this);
   // }
 
   state = {
@@ -27,7 +30,7 @@ class App extends Component {
   }
 
   // UNSAFE_componentWillMount () {}
-  componentDidMount () {
+  componentDidMount() {
     // console.log(this.props.location);
     // console.log(this.props.match);
 
@@ -37,42 +40,57 @@ class App extends Component {
     //   })
     // })
 
-    const token = localStorage.getItem('token');
+    this.props.handleAtualizaTweets((listaDeTweets) => {
+      const { idTweet } = this.props.match.params;
+      const novoState = { /* tweets: listaDeTweets */ };
 
-    fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`)
-      .then(resposta => resposta.json())
-      .then(listaDeTweets => {
-        const { idTweet } = this.props.match.params;
-        const novoState = {
-          // tweets: listaDeTweets
-        };
+      if (idTweet) {
+        const tweetLink = listaDeTweets.find(
+          tweet => tweet._id === idTweet
+        );
 
-        if (idTweet) {
-          const tweetLink = listaDeTweets.find(
-            tweet => tweet._id === idTweet
-          );
-
-          if (tweetLink) {
-            novoState.mostraModal = true;
-            novoState.tweetSelecionado = tweetLink;
-          }
+        if (tweetLink) {
+          novoState.mostraModal = true;
+          novoState.tweetSelecionado = tweetLink;
         }
+      }
 
-        this.setState(novoState);
-        this.props.dispatch({
-          type: 'ATUALIZAR_TWEETS',
-          payload: listaDeTweets
-        });
-          // {
-            // tweets: listaDeTweets
-            // tweets: listaDeTweets.map(tweet => {
-            //   tweet.totalLikes += 1;
+      this.setState(novoState);
+    });
+    // fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`)
+    //   .then(resposta => resposta.json())
+    //   .then(listaDeTweets => {
+    //     const { idTweet } = this.props.match.params;
+    //     const novoState = { /* tweets: listaDeTweets */ };
 
-            //   return tweet;
-            // })
-          // }
-        // )
-      });
+    //     if (idTweet) {
+    //       const tweetLink = listaDeTweets.find(
+    //         tweet => tweet._id === idTweet
+    //       );
+
+    //       if (tweetLink) {
+    //         novoState.mostraModal = true;
+    //         novoState.tweetSelecionado = tweetLink;
+    //       }
+    //     }
+
+    //     this.setState(novoState);
+
+    //     // atualiza a store
+    //     this.props.handleAtualizaTweets({
+    //       type: 'ATUALIZAR_TWEETS',
+    //       payload: listaDeTweets
+    //     });
+    //       // {
+    //         // tweets: listaDeTweets
+    //         // tweets: listaDeTweets.map(tweet => {
+    //         //   tweet.totalLikes += 1;
+
+    //         //   return tweet;
+    //         // })
+    //       // }
+    //     // )
+    //   });
   }
 
   // UNSAFE_componentWillReceiveProps () {}
@@ -90,7 +108,7 @@ class App extends Component {
   //   }
   // }
 
-  componentDidCatch (error) {
+  componentDidCatch(error) {
     console.log('xi, algo deu errado!');
     console.log(error);
     this.setState({ erro: true });
@@ -105,23 +123,25 @@ class App extends Component {
 
     // console.log('form submitado');
     // this.state.novoTweet // conteudo
-    const token = localStorage.getItem('token');
 
-    fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        conteudo: this.state.novoTweet
-      })
-    }).then(resposta => resposta.json())
-      .then(tweetNovo => {
-        this.setState({
-          tweets: [tweetNovo, ...this.state.tweets],
-          novoTweet: ''
-        });
+    this.props.handleCriaTweet(this.state.novoTweet, () => {
+      this.setState({
+        // tweets: [tweetNovo, ...this.state.tweets],
+        novoTweet: ''
       });
+    });
+    // fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     conteudo: this.state.novoTweet
+    //   })
+    // }).then(resposta => resposta.json())
+    // .then(tweetNovo => {
+    //   this.props.dispatch(addTweet());
+    // });
 
     // this.setState({
     //   tweets: [this.state.novoTweet, ...this.state.tweets],
@@ -131,7 +151,7 @@ class App extends Component {
 
   novoTweetValido = () => this.state.novoTweet.length === 0
     || this.state.novoTweet.length > 140
-  
+
   // renderizaTweets = () => {
   //   return this.state.tweets.map(
   //     conteudoTweet => (
@@ -194,7 +214,7 @@ class App extends Component {
     return (
       <Fragment>
         <Cabecalho>
-          <NavMenu usuario="@omariosouto"/>
+          <NavMenu usuario="@omariosouto" />
         </Cabecalho>
         <div className="container">
           <Dashboard>
@@ -276,7 +296,7 @@ class App extends Component {
               totalLikes={tweetSelecionado.totalLikes || tweetSelecionado.likes.length}
               nomeUsuario={`${tweetSelecionado.usuario.nome} ${tweetSelecionado.usuario.sobrenome}`}
               excluirtweetSelecionado={this.excluirTweet(tweetSelecionado._id)}
-            >            
+            >
               {tweetSelecionado.conteudo}
             </Tweet>
           )}
@@ -286,10 +306,21 @@ class App extends Component {
   }
 }
 
-function mapStateToProps (stateDaStore) {
+function mapStateToProps(stateDaStore) {
   return {
     listaDeTweets: stateDaStore.tweets
   };
 }
 
-export default connect(mapStateToProps)(withRouter(App));
+function mapDispatchToProps(dispatch, props) {
+  return {
+    handleCriaTweet: (novoTweet, onSuccess) => {
+      dispatch(criaTweet(novoTweet, onSuccess));
+    },
+    handleAtualizaTweets: (onSuccess) => {
+      dispatch(atualizaTweets(onSuccess));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

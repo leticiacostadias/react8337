@@ -63,3 +63,20 @@ export function likeTweet(idTweet) {
     });
   }
 }
+
+export function excluiTweet(idTweet) {
+  const token = localStorage.getItem('token');
+
+  return (dispatch) => {
+    fetch(`http://twitelum-api.herokuapp.com/tweets/${idTweet}?X-AUTH-TOKEN=${token}`, {
+      method: 'DELETE'
+    }).then(resposta => {
+      if (resposta.ok) {
+        dispatch({
+          type: 'DELETAR_TWEET',
+          payload: idTweet
+        });
+      }
+    });
+  }
+}

@@ -97,7 +97,7 @@ class Tweet extends Component {
           </button>
 
           {this.props.removivel && (
-            <button onClick={this.props.excluirTweet} className="btn btn--blue btn--remove">X</button>
+            <button onClick={this.props.handleExcluirTweet} className="btn btn--blue btn--remove">X</button>
           )}
         </footer>
       </article>

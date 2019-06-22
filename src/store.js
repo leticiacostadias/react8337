@@ -48,6 +48,14 @@ function reducerTweets (state = storeInicial, action) {
         ...state,
         tweets: tweetsAtualizados
       };
+
+    case 'DELETAR_TWEET':
+      return {
+        ...state,
+        tweets: state.tweets
+          .filter(tweet => tweet._id !== action.payload)
+      };
+
     default:
       return state;
   }

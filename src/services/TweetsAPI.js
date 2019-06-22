@@ -64,7 +64,7 @@ export function likeTweet(idTweet) {
   }
 }
 
-export function excluiTweet(idTweet) {
+export function excluiTweet(idTweet, onSuccess) {
   const token = localStorage.getItem('token');
 
   return (dispatch) => {
@@ -76,6 +76,13 @@ export function excluiTweet(idTweet) {
           type: 'DELETAR_TWEET',
           payload: idTweet
         });
+
+        dispatch({
+          type: 'TOGGLE_VISUALIZACAO',
+          payload: null
+        });
+
+        if (onSuccess) onSuccess();
       }
     });
   }

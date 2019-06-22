@@ -2,7 +2,9 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 const storeInicial = {
-  tweets: []
+  tweets: [],
+  tweetSelecionado: null,
+  mostraModal: false
 };
 
 // action = { type: 'ASSAR_BOLINHO' }
@@ -55,6 +57,13 @@ function reducerTweets (state = storeInicial, action) {
         tweets: state.tweets
           .filter(tweet => tweet._id !== action.payload)
       };
+
+    case 'TOGGLE_VISUALIZACAO':
+      return {
+        ...state,
+        mostraModal: Boolean(action.payload),
+        tweetSelecionado: action.payload
+      }
 
     default:
       return state;

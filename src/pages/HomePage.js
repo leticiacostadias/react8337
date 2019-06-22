@@ -23,10 +23,10 @@ class App extends Component {
   // }
 
   state = {
-    // atualizado: false,
     novoTweet: '',
-    mostraModal: false,
-    tweetSelecionado: null,
+    // atualizado: false,
+    // mostraModal: false,
+    // tweetSelecionado: null,
     // tweets: []
   }
 
@@ -174,30 +174,36 @@ class App extends Component {
   abreModalParaTweet = (tweet) => () => {
     this.props.history.push(`/tweets/${tweet._id}`);
 
-    this.setState({
-      mostraModal: true,
-      tweetSelecionado: tweet
-    });
+    this.props.handleToggleModal(tweet);
+    // this.setState({
+    //   mostraModal: true,
+    //   tweetSelecionado: tweet
+    // });
   }
 
   fechaModal = () => {
     this.props.history.push('/');
 
-    this.setState({
-      mostraModal: false,
-      tweetSelecionado: null
-    });
+    this.props.handleToggleModal(null);
+    // this.setState({
+    //   mostraModal: false,
+    //   tweetSelecionado: null
+    // });
   }
 
   render() {
     const {
       novoTweet,
       // tweets,
-      mostraModal,
-      tweetSelecionado
+      // mostraModal,
+      // tweetSelecionado
     } = this.state;
 
-    const { listaDeTweets } = this.props;
+    const {
+      listaDeTweets,
+      mostraModal,
+      tweetSelecionado
+    } = this.props;
 
     return (
       <Fragment>
@@ -283,12 +289,16 @@ class App extends Component {
               likeado={tweetSelecionado.likeado}
               totalLikes={tweetSelecionado.totalLikes || tweetSelecionado.likes.length}
               nomeUsuario={`${tweetSelecionado.usuario.nome} ${tweetSelecionado.usuario.sobrenome}`}
-              // excluirTweet={this.excluirTweet(tweetSelecionado._id)}
+            // excluirTweet={this.excluirTweet(tweetSelecionado._id)}
             >
               {tweetSelecionado.conteudo}
             </Tweet>
           )}
         </Modal>
+
+        <div className="notificacaoMsg">
+          Olá, sou uma notificação muito lindinha!
+        </div>
       </Fragment>
     );
   }
@@ -296,7 +306,9 @@ class App extends Component {
 
 function mapStateToProps(stateDaStore) {
   return {
-    listaDeTweets: stateDaStore.tweets
+    listaDeTweets: stateDaStore.tweets,
+    mostraModal: stateDaStore.mostraModal,
+    tweetSelecionado: stateDaStore.tweetSelecionado
   };
 }
 
@@ -307,6 +319,12 @@ function mapDispatchToProps(dispatch, props) {
     },
     handleAtualizaTweets: (onSuccess) => {
       dispatch(atualizaTweets(onSuccess));
+    },
+    handleToggleModal: (tweet) => {
+      dispatch({
+        type: 'TOGGLE_VISUALIZACAO',
+        payload: tweet
+      })
     }
   };
 }

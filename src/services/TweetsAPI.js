@@ -1,3 +1,5 @@
+import { mostraNotificacao } from './Notificacao';
+
 // export function addTweet(tweetNovo) {
 //   return {
 //     type: 'ADD_TWEET',
@@ -42,6 +44,17 @@ export function criaTweet(novoTweet, onSuccess) {
           payload: tweetNovo
         });
 
+        dispatch(mostraNotificacao('Tweet adicionado com sucesso!'));
+
+        // dispatch({
+        //   type: 'MOSTRAR_NOTIFICACAO',
+        //   payload: 'Tweet adicionado com sucesso!'
+        // });
+
+        // setTimeout(() => {
+        //   dispatch({ type: 'REMOVE_NOTIFICACAO' });
+        // }, 3000);
+
         if (onSuccess) onSuccess();
       })
   };
@@ -81,6 +94,8 @@ export function excluiTweet(idTweet, onSuccess) {
           type: 'TOGGLE_VISUALIZACAO',
           payload: null
         });
+
+        dispatch(mostraNotificacao('Tweet excluído com sucesso!'));
 
         if (onSuccess) onSuccess();
       }

@@ -7,8 +7,9 @@ import NavMenu from './../components/NavMenu';
 import Dashboard from './../components/Dashboard';
 import Widget from './../components/Widget';
 import TrendsArea from './../components/TrendsArea';
-import Tweet from './../components/Tweet';
 import Modal from './../components/Modal';
+
+import Tweet from './../containers/TweetConectado';
 
 // import * as TweetAPI from '../services/TweetsAPI';
 import { atualizaTweets, criaTweet } from '../services/TweetsAPI';
@@ -22,8 +23,8 @@ class App extends Component {
   // }
 
   state = {
+    // atualizado: false,
     novoTweet: '',
-    atualizado: false,
     mostraModal: false,
     tweetSelecionado: null,
     // tweets: []

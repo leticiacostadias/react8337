@@ -32,7 +32,22 @@ function reducerTweets (state = storeInicial, action) {
         ...state,
         tweets
       };
+    
+    case 'LIKE_TWEET':
+      const tweetsAtualizados = state.tweets
+        .map(tweet => {
+          if (tweet._id === action.payload) {
+            tweet.totalLikes += tweet.likeado ? -1 : 1;
+            tweet.likeado = !tweet.likeado;
+          }
 
+          return tweet;
+        });
+      
+      return {
+        ...state,
+        tweets: tweetsAtualizados
+      };
     default:
       return state;
   }

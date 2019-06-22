@@ -5,7 +5,7 @@
 //   };
 // }
 
-export function atualizaTweets (onSuccess) {
+export function atualizaTweets(onSuccess) {
   const token = localStorage.getItem('token');
 
   return (dispatch) => {
@@ -45,4 +45,21 @@ export function criaTweet(novoTweet, onSuccess) {
         if (onSuccess) onSuccess();
       })
   };
+}
+
+export function likeTweet(idTweet) {
+  const token = localStorage.getItem('token');
+
+  return (dispatch) => {
+    fetch(`http://twitelum-api.herokuapp.com/tweets/${idTweet}/like?X-AUTH-TOKEN=${token}`, {
+      method: 'POST'
+    }).then(resposta => {
+      if (resposta.ok) {
+        dispatch({
+          type: 'LIKE_TWEET',
+          payload: idTweet
+        });
+      }
+    });
+  }
 }

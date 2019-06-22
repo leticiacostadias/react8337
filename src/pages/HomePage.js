@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
-import Cabecalho from './../components/Cabecalho'
-import NavMenu from './../components/NavMenu'
-import Dashboard from './../components/Dashboard'
-import Widget from './../components/Widget'
-import TrendsArea from './../components/TrendsArea'
-import Tweet from './../components/Tweet'
-import Modal from './../components/Modal'
+import { connect } from 'react-redux';
+
+import Cabecalho from './../components/Cabecalho';
+import NavMenu from './../components/NavMenu';
+import Dashboard from './../components/Dashboard';
+import Widget from './../components/Widget';
+import TrendsArea from './../components/TrendsArea';
+import Tweet from './../components/Tweet';
+import Modal from './../components/Modal';
 
 class App extends Component {
   // constructor (props) {
@@ -21,13 +23,19 @@ class App extends Component {
     atualizado: false,
     mostraModal: false,
     tweetSelecionado: null,
-    tweets: []
+    // tweets: []
   }
 
   // UNSAFE_componentWillMount () {}
   componentDidMount () {
     // console.log(this.props.location);
     // console.log(this.props.match);
+
+    // window.store.subscribe(() => {
+    //   this.setState({
+    //     tweets: window.store.getState().tweets
+    //   })
+    // })
 
     const token = localStorage.getItem('token');
 
@@ -36,7 +44,7 @@ class App extends Component {
       .then(listaDeTweets => {
         const { idTweet } = this.props.match.params;
         const novoState = {
-          tweets: listaDeTweets
+          // tweets: listaDeTweets
         };
 
         if (idTweet) {
@@ -51,6 +59,10 @@ class App extends Component {
         }
 
         this.setState(novoState);
+        this.props.dispatch({
+          type: 'ATUALIZAR_TWEETS',
+          payload: listaDeTweets
+        });
           // {
             // tweets: listaDeTweets
             // tweets: listaDeTweets.map(tweet => {
@@ -172,10 +184,12 @@ class App extends Component {
   render() {
     const {
       novoTweet,
-      tweets,
+      // tweets,
       mostraModal,
       tweetSelecionado
     } = this.state;
+
+    const { listaDeTweets } = this.props;
 
     return (
       <Fragment>
@@ -217,10 +231,10 @@ class App extends Component {
           <Dashboard posicao="centro">
             <Widget>
               <div className="tweetsArea">
-                {tweets.length === 0 && (
+                {listaDeTweets.length === 0 && (
                   <span>Twitte alguma coisa!</span>
                 )}
-                {tweets.map((tweet) => (
+                {listaDeTweets.map((tweet) => (
                   <Tweet
                     key={tweet._id}
                     id={tweet._id}
@@ -272,4 +286,10 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+function mapStateToProps (stateDaStore) {
+  return {
+    listaDeTweets: stateDaStore.tweets
+  };
+}
+
+export default connect(mapStateToProps)(withRouter(App));

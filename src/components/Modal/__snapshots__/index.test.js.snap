@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal deve renderizar filhos 1`] = `
+<div
+  className="modal modal--active"
+  onClick={[Function]}
+>
+  <div
+    className="modal__wrapper"
+  >
+    <div
+      className="widget"
+    >
+      <h1>
+        Título do modal
+      </h1>
+    </div>
+  </div>
+</div>
+`;

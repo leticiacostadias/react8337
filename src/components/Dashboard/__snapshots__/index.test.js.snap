@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard deve renderizar filhos 1`] = `
+<div
+  className="dashboard dashboard__undefined"
+>
+  <h1>
+    Título do dashboard
+  </h1>
+</div>
+`;

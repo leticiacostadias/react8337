@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import './index.css';
 
 import Widget from './../Widget';
 
 class Modal extends Component {
+  static propTypes = {
+    estaAberto: propTypes.bool.isRequired,
+    fechaModal: propTypes.func.isRequired
+  }
+
   handleClick = (event) => {
     if (event.target.closest('.modal__wrapper')) {
       return;

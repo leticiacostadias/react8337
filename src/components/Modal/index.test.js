@@ -54,7 +54,25 @@ describe('Modal', () => {
     };
 
     modal.simulate('click', mockEvent);
-
     expect(mockFechaModal.mock.calls.length).toBe(0);
-  })
+  });
+
+  it('deve acionar fechaModal quando .modal for clicado', () => {
+    const mockFechaModal = jest.fn();
+    const modal = shallow(
+      <Modal estaAberto={true} fechaModal={mockFechaModal}>
+        <h1>Título do modal</h1>
+      </Modal>
+    );
+
+    const mockEvent = {
+      target: {
+        closest: () => false
+      }
+    };
+
+    modal.simulate('click', mockEvent);
+    // expect(mockFechaModal.mock.calls.length).toBe(1);
+    expect(mockFechaModal).toHaveBeenCalled();
+  });
 });

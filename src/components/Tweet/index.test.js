@@ -28,10 +28,60 @@ describe('Tweet', () => {
     };
   });
 
-  it('deve renderizar avatar url', () => {
-    props.avatarURL = '';
-    const tweet = mountTweet();
+  it('deve executar handleCurtirTweet ao clicar no like', () => {
+    props.handleCurtirTweet = jest.fn();
 
-    // teste aqui
+    const tweet = mountTweet();
+    const likeButton = tweet.find('.btn--clean');
+
+    likeButton.simulate('click');
+
+    expect(props.handleCurtirTweet).toHaveBeenCalled();
+  });
+
+  it('deve renderizar botão de exclusão se removivel for true', () => {
+    props.removivel = true;
+
+    const tweet = mountTweet();
+    const excluirButton = tweet.find('.btn--remove');
+
+    expect(excluirButton.length).toBe(1);
+  });
+
+  it('não deve renderizar botão de exclusão se removivel for false', () => {
+    props.removivel = false;
+
+    const tweet = mountTweet();
+    const excluirButton = tweet.find('.btn--remove');
+
+    expect(excluirButton.length).toBe(0);
+  });
+
+  it('deve executar handleExcluirTweet quando o botão de exclusão for clicado', () => {
+    props.removivel = true;
+    props.handleExcluirTweet = jest.fn();
+
+    const tweet = mountTweet();
+    const excluirButton = tweet.find('.btn--remove');
+
+    excluirButton.simulate('click');
+
+    expect(props.handleExcluirTweet).toHaveBeenCalled();
+  });
+
+  it('deve renderizar o nome do usuário no cabeçalho', () => {
+    const tweet = mountTweet();
+    const elementoNomeUsuario = tweet.find('span.tweet__nomeUsuario');
+
+    expect(elementoNomeUsuario.text()).toEqual(props.nomeUsuario);
+  });
+
+  it('deve renderizar o avatar com src igual a avatarUrl', () => {
+    props.avatarUrl = 'https://imagem.do.user.com';
+
+    const tweet = mountTweet();
+    const elementoAvatar = tweet.find('img.tweet__fotoUsuario');
+
+    expect(elementoAvatar.prop('src')).toEqual(props.avatarUrl);
   });
 })

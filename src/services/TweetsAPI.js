@@ -22,7 +22,7 @@ export function criaTweet(novoTweet, onSuccess) {
   const token = localStorage.getItem('token');
 
   return (dispatch) => {
-    fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`, {
+    return fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export function likeTweet(idTweet) {
   const token = localStorage.getItem('token');
 
   return (dispatch) => {
-    fetch(`http://twitelum-api.herokuapp.com/tweets/${idTweet}/like?X-AUTH-TOKEN=${token}`, {
+    return fetch(`http://twitelum-api.herokuapp.com/tweets/${idTweet}/like?X-AUTH-TOKEN=${token}`, {
       method: 'POST'
     }).then(resposta => {
       if (resposta.ok) {

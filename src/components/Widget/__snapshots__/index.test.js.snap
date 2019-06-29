@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Teste do componente Widget 1`] = `
+<div
+  className="widget"
+>
+  <h1>
+    Título do widget
+  </h1>
+</div>
+`;

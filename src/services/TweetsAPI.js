@@ -1,12 +1,5 @@
 import { mostraNotificacao } from './Notificacao';
 
-// export function addTweet(tweetNovo) {
-//   return {
-//     type: 'ADD_TWEET',
-//     payload: tweetNovo
-//   };
-// }
-
 export function atualizaTweets(onSuccess) {
   const token = localStorage.getItem('token');
 
@@ -45,15 +38,6 @@ export function criaTweet(novoTweet, onSuccess) {
         });
 
         dispatch(mostraNotificacao('Tweet adicionado com sucesso!'));
-
-        // dispatch({
-        //   type: 'MOSTRAR_NOTIFICACAO',
-        //   payload: 'Tweet adicionado com sucesso!'
-        // });
-
-        // setTimeout(() => {
-        //   dispatch({ type: 'REMOVE_NOTIFICACAO' });
-        // }, 3000);
 
         if (onSuccess) onSuccess();
       })

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import './tweet.css';
 
-// this.props
-
 class Tweet extends Component {
   static propTypes = {
     totalLikes: propTypes.number,
@@ -24,31 +22,6 @@ class Tweet extends Component {
     avatarUrl: 'https://place-hold.it/50x50',
     abreModal: null
   }
-
-  // state = {
-  //   likeado: this.props.likeado,
-  //   totalLikes: this.props.totalLikes
-  // }
-
-  // curtirTweet = () => {
-  //   this.props.handleCurtirTweet();
-    // const { likeado, totalLikes } = this.state;
-    // const { id } = this.props;
-    
-    // const token = localStorage.getItem('token');
-
-    // fetch(`http://twitelum-api.herokuapp.com/tweets/${id}/like?X-AUTH-TOKEN=${token}`, {
-    //   method: 'POST'
-    // })
-    //   .then(resposta => {
-    //     if (resposta.ok) {
-    //       this.setState({
-    //         likeado: !likeado,
-    //         totalLikes: totalLikes + (likeado ? -1 : +1)
-    //       });
-    //     }
-    //   });
-  // }
 
   handleClick = (event) => {
     if (event.target.closest('.tweet__footer')) return;

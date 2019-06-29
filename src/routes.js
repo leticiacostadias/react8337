@@ -15,7 +15,6 @@ export const Roteamento = () => (
     <Route path="/logout" component={(() => <Redirect to="/login"/>)} />
     <Route path="/signup" component={SignUp} />
     <Route path="*" component={ErrorPage} />
-    {/* <Route path="/categoria/:produtoId" component={ProductPage} /> */}
 
   </Switch>
 );

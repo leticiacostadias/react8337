@@ -1,7 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types';
 import './cabecalho.css'
-// import './navMenu.css'
 
 const Cabecalho = (props) => (
     <header className="cabecalho">

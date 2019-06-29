@@ -15,15 +15,11 @@ class LoginPage extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
-    // pegar os valores
-    // console.log(this.refs.username);
     const username = this.usernameInput.value;
     const senha = this.senhaInput.value;
 
-    // validar
     if (username.length === 0 || senha.length === 0) return;
 
-    // mandar pra API
     const resposta = await fetch(
       'http://twitelum-api.herokuapp.com/login',
       {
@@ -40,25 +36,8 @@ class LoginPage extends Component {
       return this.setState({ erro: dados.message });
     }
 
-    // guardar token
     localStorage.setItem('token', dados.token);
     this.setState({ token: localStorage.getItem('token') });
-
-    // this.props.history.push('/');
-
-      // .then(resposta => {
-      //   if (resposta.status !== 200) {
-      //     throw resposta; // pega o body e transforma em obj
-      //   }
-
-      //   return response.json();
-      // })
-      // // caminho da felicidade
-      // .then((dados) => console.log(dados))
-
-      // // caminho do erro
-      // .catch(respostaErro => respostaErro.json())
-      // .then(bodyErro => this.setState({ erro: bodyErro.message }));
   }
 
   render() {
@@ -81,7 +60,6 @@ class LoginPage extends Component {
                 <div className="loginPage__inputWrap">
                   <label className="loginPage__label" htmlFor="login">Login</label>
                   <input
-                    // ref="username"
                     ref={(elem) => this.usernameInput = elem}
                     className="loginPage__input"
                     type="text"

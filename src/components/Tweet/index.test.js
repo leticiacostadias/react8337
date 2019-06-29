@@ -3,7 +3,12 @@ import Tweet from './index';
 import { shallow } from 'enzyme';
 
 describe('Tweet', () => {
-  let props = {};
+  let props = {
+    id: '1234567890',
+    userName: 'leticiaCosta',
+    nomeUsuario: 'Letícia Costa',
+    children: 'React rules!'
+  };
   let tweet = null;
   const mountTweet = () => {
     if (!tweet) {
@@ -15,7 +20,12 @@ describe('Tweet', () => {
 
   beforeEach(() => {
     tweet = null;
-    props = {};
+    props = {
+      id: '1234567890',
+      userName: 'leticiaCosta',
+      nomeUsuario: 'Letícia Costa',
+      children: 'React rules!'
+    };
   });
 
   it('deve renderizar avatar url', () => {

@@ -1,0 +1,22 @@
+---
+name: Tweet
+---
+
+import { Playground, Props } from 'docz';
+import Tweet from './index.js'
+
+## Definition
+Componente que renderiza os tweets.
+
+## Features
+
+### Excluir
+Permite excluir o tweet. E só aparece caso a propriedade `removivel` for igual a `true`
+
+<Props of={Tweet} />
+
+## Basic usage
+
+<Playground>
+  <Tweet removivel={true}></Tweet>
+</Playground>

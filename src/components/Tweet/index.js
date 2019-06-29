@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import './tweet.css';
+// import './tweet.css';
 
 class Tweet extends Component {
   static propTypes = {

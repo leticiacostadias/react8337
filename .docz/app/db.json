@@ -1,0 +1,171 @@
+{
+  "config": {
+    "title": "Twitelum",
+    "description": "Twitter da Caelum",
+    "menu": [],
+    "version": "0.1.0",
+    "repository": null,
+    "native": false,
+    "codeSandbox": true,
+    "themeConfig": {},
+    "separator": "-",
+    "theme": "docz-theme-default"
+  },
+  "props": [
+    {
+      "key": "extras/Cabecalho.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Cabecalho",
+          "methods": [],
+          "actualName": "Cabecalho"
+        }
+      ]
+    },
+    {
+      "key": "src/components/RotaPrivada.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "RotaPrivada",
+          "methods": [],
+          "actualName": "RotaPrivada"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/ErrorPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ErrorPage",
+          "methods": [],
+          "actualName": "ErrorPage"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/HomePage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "App",
+          "methods": [
+            {
+              "name": "handleChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleSubmit",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "novoTweetValido",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "abreModalParaTweet",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "tweet",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "fechaModal",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "App"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/SignUp.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SignUp",
+          "methods": [
+            {
+              "name": "handleSubmit",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "values",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "SignUp"
+        }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "key": "src/components/Tweet/index.mdx",
+      "value": {
+        "name": "Tweet",
+        "id": "729872bbff8a0f3f7afa514f3729164f",
+        "filepath": "src/components/Tweet/index.mdx",
+        "link": "",
+        "slug": "src-components-tweet-index",
+        "route": "/src-components-tweet-index",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "definition",
+            "depth": 2,
+            "value": "Definition"
+          },
+          {
+            "slug": "features",
+            "depth": 2,
+            "value": "Features"
+          },
+          {
+            "slug": "excluir",
+            "depth": 3,
+            "value": "Excluir"
+          },
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic usage"
+          }
+        ]
+      }
+    }
+  ]
+}

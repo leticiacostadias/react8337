@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 describe('Tweet', () => {
   let props = {};
   let tweet = null;
-  const mountTweet = function () {
+  const mountTweet = () => {
     if (!tweet) {
       tweet = shallow(<Tweet {...props} />)
     }
@@ -21,5 +21,7 @@ describe('Tweet', () => {
   it('deve renderizar avatar url', () => {
     props.avatarURL = '';
     const tweet = mountTweet();
-  })
+
+    // teste aqui
+  });
 })
